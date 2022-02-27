@@ -36,18 +36,6 @@ pipeline {
       }
     }
 
-    stage('Quality gate') {
-      post {
-        failure {
-          mail(subject: 'Erreur Quality Gate', body: 'Bonjour, le code soumis a un statut Quality Gates : failed. Cordialement.', from: 'kn_larbaoui@esi.dz', to: 'kn_larbaoui@esi.dz')
-        }
-
-      }
-      steps {
-        waitForQualityGate true
-      }
-    }
-
     stage('Deployment') {
       steps {
         bat './gradlew publish'
